@@ -1,22 +1,33 @@
 import { Button } from "@mui/material";
+import { Select } from "../Select/Select";
+import { FormEvent, useState } from "react";
+import { NoUnit, shoppingCategoriesMap, UnitMap } from "../../constants";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
-import { ChangeEvent, FormEvent, useState } from "react";
 
 interface IngredientFormValues {
   name: string;
-  defaultUnit: string; // to be updated to use Unit enum.
+  defaultUnit: keyof typeof UnitMap; // to be updated to use Unit enum.
   category: string; // should also be an enum
 }
 
 const defaultIngredientFormValues: IngredientFormValues = {
   name: "",
-  defaultUnit: "",
+  defaultUnit: NoUnit.BLANK,
   category: "",
 };
 
 export const IngredientForm: React.FC = () => {
   const [values, setValues] = useState(defaultIngredientFormValues);
+
+  const defaultUnitOptions = Object.entries(UnitMap).map(([value, label]) => ({
+    value,
+    label,
+  }));
+
+  const categoryOptions = Object.entries(shoppingCategoriesMap).map(
+    ([value, label]) => ({ value, label })
+  );
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -25,7 +36,7 @@ export const IngredientForm: React.FC = () => {
     console.log(values);
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {
     setValues((s) => ({ ...s, [event.target.name]: event.target.value }));
   };
 
@@ -42,14 +53,18 @@ export const IngredientForm: React.FC = () => {
         label="Ingredient Name"
       />
 
-      <Input
+      <Select
+        label="Default Unit"
+        id="defaultUnit"
         name="defaultUnit"
         value={values.defaultUnit}
         onChange={handleChange}
-        label="Default Unit"
+        options={defaultUnitOptions}
       />
 
-      <Input
+      <Select
+        id="category"
+        options={categoryOptions}
         name="category"
         value={values.category}
         onChange={handleChange}
