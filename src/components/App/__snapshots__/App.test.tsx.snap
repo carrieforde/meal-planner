@@ -2,188 +2,34 @@
 
 exports[`App should render the App component consistently 1`] = `
 <div>
+  <button
+    class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+    tabindex="0"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+      data-testid="MenuIcon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+      />
+    </svg>
+    <span
+      class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+    />
+  </button>
   <main
     class="MuiBox-root css-65avyl"
   >
-    <form
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-1f03z5m-MuiPaper-root"
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
     >
-      <h1
-        class="MuiTypography-root MuiTypography-h6 css-7z1zgs-MuiTypography-root"
-      >
-        Add Ingredient
-      </h1>
-      <div
-        class="MuiBox-root css-1fui69a"
-      >
-        <div
-          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-        >
-          <label
-            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
-            for="mui-1"
-            id="mui-1-label"
-          >
-            Ingredient Name
-          </label>
-          <div
-            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-              id="mui-1"
-              name="name"
-              type="text"
-              value=""
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-173wfxe"
-              >
-                <span>
-                  Ingredient Name
-                </span>
-              </legend>
-            </fieldset>
-          </div>
-        </div>
-        <div
-          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
-        >
-          <label
-            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1kty9di-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="true"
-            id="defaultUnitLabel"
-          >
-            Default Unit
-          </label>
-          <div
-            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <div
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-labelledby="defaultUnitLabel defaultUnit"
-              class="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-              id="defaultUnit"
-              role="button"
-              tabindex="0"
-            >
-              -- No Unit --
-            </div>
-            <input
-              aria-hidden="true"
-              class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-              name="defaultUnit"
-              tabindex="-1"
-              value="BLANK"
-            />
-            <svg
-              aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-              data-testid="ArrowDropDownIcon"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M7 10l5 5 5-5z"
-              />
-            </svg>
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-1z7n62"
-              >
-                <span>
-                  Default Unit
-                </span>
-              </legend>
-            </fieldset>
-          </div>
-        </div>
-        <div
-          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
-        >
-          <label
-            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
-            id="categoryLabel"
-          >
-            Category
-          </label>
-          <div
-            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <div
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-labelledby="categoryLabel category"
-              class="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-              id="category"
-              role="button"
-              tabindex="0"
-            >
-              <span
-                class="notranslate"
-              >
-                ​
-              </span>
-            </div>
-            <input
-              aria-hidden="true"
-              class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-              name="category"
-              tabindex="-1"
-              value=""
-            />
-            <svg
-              aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-              data-testid="ArrowDropDownIcon"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M7 10l5 5 5-5z"
-              />
-            </svg>
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-173wfxe"
-              >
-                <span>
-                  Category
-                </span>
-              </legend>
-            </fieldset>
-          </div>
-        </div>
-      </div>
-      <div
-        class="MuiBox-root css-0"
-      >
-        <button
-          class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-          tabindex="0"
-          type="submit"
-        >
-          Save
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
-      </div>
-    </form>
+      Shopping List
+    </p>
   </main>
 </div>
 `;

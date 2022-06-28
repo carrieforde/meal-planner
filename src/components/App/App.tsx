@@ -1,21 +1,13 @@
-import { Box } from "@mui/material";
-import { IngredientForm } from "../IngredientForm/IngredientForm";
+import React from "react";
+import { Route, Routes } from "react-router";
+import { ItemInventory, MealPlans, Recipes, ShoppingList } from "views";
 
-function App() {
-  return (
-    <Box
-      component="main"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <IngredientForm />
-    </Box>
-  );
-}
-
-export default App;
+export const App: React.FC = () => (
+  <Routes>
+    <Route path="/" element={<ShoppingList />} />
+    <Route path="shopping-list" element={<ShoppingList />} />
+    <Route path="item-inventory" element={<ItemInventory />} />
+    <Route path="recipes" element={<Recipes />} />
+    <Route path="meal-plans" element={<MealPlans />} />
+  </Routes>
+);
