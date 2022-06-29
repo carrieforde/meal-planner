@@ -1,8 +1,8 @@
 ---
-to: src/components/<%= Name %>/<%= Name %>.spec.tsx
+to: src/components/<%= Name %>/<%= Name %>.test.tsx
 ---
 
-import <%= Name %> from './<%= Name %>';
+import { <%= Name %> } from './<%= Name %>';
 import { render } from '@testing-library/react';
 
 describe('<%= Name %>', () => {
