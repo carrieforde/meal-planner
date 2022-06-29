@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 import { Reducer } from "redux";
-import store from "store";
+import { store } from "store/store";
 
 export function getState(key: string) {
   return store.getState()[key];

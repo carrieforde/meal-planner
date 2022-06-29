@@ -8,6 +8,8 @@ import store from "store";
 import { getState, injectReducer, subscribe } from "store/utilities/utilities";
 import { <%= Name %>State } from "./<%= name %>.interface";
 
+export interface <%= Name %>State {}
+
 const STORE_KEY = "<%= name %>";
 
 export const initial<%= Name %>State = {};

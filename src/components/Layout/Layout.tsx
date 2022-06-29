@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Navigation } from "components/Navigation/Navigation";
+import { Navigation } from "components/Navigation";
 
 export const Layout: React.FC = ({ children }) => (
   <>

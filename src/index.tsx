@@ -4,7 +4,7 @@ import { App } from "components";
 import reportWebVitals from "./reportWebVitals";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "mui/theme";
+import { theme } from "mui";
 import "styles/index.css";
 import { BrowserRouter } from "react-router-dom";
 

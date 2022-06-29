@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
-import { Select } from "../Select/Select";
 import { FormEvent, useState } from "react";
-import { NoUnit, shoppingCategoriesMap, UnitMap } from "../../constants";
-import { Form } from "../Form/Form";
-import { Input } from "../Input/Input";
+import { NoUnit, shoppingCategoriesMap, UnitMap } from "@constants";
+import { Form } from "components/Form";
+import { Input } from "components/Input";
+import { Select } from "components/Select";
 
 interface IngredientFormValues {
   name: string;

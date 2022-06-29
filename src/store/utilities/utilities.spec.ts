@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
-import store from "store";
+import { store } from "store/store";
+
 import { getState, injectReducer, subscribe } from "./utilities";
 
 const storeMock = jest.mocked(store);
