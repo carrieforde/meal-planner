@@ -7,6 +7,7 @@ import {
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { ShoppingListQuery } from "generated/graphql";
 import React from "react";
+import { getText } from "utilities";
 
 export type ListProps = {
   data?: ShoppingListQuery;
@@ -32,14 +33,18 @@ export const List: React.FC<ListProps> = ({ data }) => {
           <ListItemText primary={category} />
 
           <MuiList>
-            {data?.shoppingList.map(({ item, inCart }) => (
-              <ListItem>
-                <ListItemIcon>
-                  <CheckBoxIcon color={inCart ? "success" : "disabled"} />
-                </ListItemIcon>
-                <ListItemText primary={item.itemName} />
-              </ListItem>
-            ))}
+            {data?.shoppingList.map(
+              ({ item: { itemName }, inCart, quantityNeeded, unit }) => (
+                <ListItem>
+                  <ListItemIcon>
+                    <CheckBoxIcon color={inCart ? "success" : "disabled"} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={getText({ itemName, quantityNeeded, unit })}
+                  />
+                </ListItem>
+              )
+            )}
           </MuiList>
         </ListItem>
       ))}
