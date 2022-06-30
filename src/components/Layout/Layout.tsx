@@ -11,7 +11,7 @@ export const Layout: React.FC = ({ children }) => (
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       {children}
