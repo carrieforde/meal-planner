@@ -1,9 +1,12 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 
 const wrapper: React.FC = ({ children }) => (
-  <BrowserRouter>{children}</BrowserRouter>
+  <MockedProvider>
+    <BrowserRouter>{children}</BrowserRouter>
+  </MockedProvider>
 );
 
 describe("App", () => {

@@ -11,13 +11,18 @@ export enum VolumeUnits {
   TEASPOON = "TEASPOON",
   TABLESPOON = "TABLESPOON",
   DROP = "DROP",
+  GALLON = "GALLON",
 }
 
 export enum NoUnit {
   BLANK = "BLANK",
 }
 
-export type Units = WeightUnits | VolumeUnits | NoUnit;
+export enum OtherUnits {
+  PACKAGE = "PACKAGE",
+}
+
+export type Units = WeightUnits | VolumeUnits | NoUnit | OtherUnits;
 
 export const UnitMap: Record<Units, string> = {
   [NoUnit.BLANK]: "-- No Unit --",
@@ -30,4 +35,6 @@ export const UnitMap: Record<Units, string> = {
   [WeightUnits.OUNCE]: "oz",
   [VolumeUnits.TEASPOON]: "teaspoon",
   [VolumeUnits.TABLESPOON]: "tablespoon",
+  [VolumeUnits.GALLON]: "gallon",
+  [OtherUnits.PACKAGE]: "package",
 };
