@@ -2,6 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { ReactNode } from "react";
+import { list } from "../components/List/List.test";
 import { SHOPPING_LIST } from "./query.graphql";
 import { ShoppingList } from "./ShoppingList";
 
@@ -10,21 +11,8 @@ const shoppingListMock = {
     query: SHOPPING_LIST,
   },
   result: {
-    data: {
-      shoppingList: [
-        {
-          item: {
-            itemName: "carrot",
-            category: "PRODUCE",
-          },
-          quantityNeeded: 2,
-          unit: null,
-          inCart: null,
-        },
-      ],
-    },
+    data: list,
   },
-  error: undefined,
 };
 
 const createWrapper = (errorType?: "network" | "graphql") =>

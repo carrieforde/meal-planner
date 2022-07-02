@@ -1,59 +1,47 @@
 import { render, screen } from "@testing-library/react";
 import { List } from "./List";
 
-const list = {
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
+export const list = {
   items: [
     {
       item: {
-        name: "carrot",
         category: "PRODUCE",
+        defaultUnit: null,
+        name: "carrot",
+      },
+      quantityNeeded: 10,
+      unit: null,
+    },
+    {
+      item: {
+        category: "PRODUCE",
+        defaultUnit: null,
+        name: "lemon",
+      },
+      quantityNeeded: 5,
+      unit: null,
+    },
+    {
+      item: {
+        category: "BAKING_SUPPLIES",
+        defaultUnit: null,
+        name: "flour",
+      },
+      quantityNeeded: 2,
+      unit: "POUNDS",
+    },
+    {
+      item: {
+        category: "DAIRY",
+        defaultUnit: null,
+        name: "blueberry cream cheese",
       },
       quantityNeeded: 2,
       unit: null,
     },
-    {
-      item: {
-        name: "milk",
-        category: "DAIRY",
-      },
-      quantityNeeded: 1,
-      unit: "GALLON",
-    },
-    {
-      item: {
-        name: "carrot cake",
-        category: "BAKED_GOODS",
-      },
-      quantityNeeded: 5,
-      unit: null,
-    },
-    {
-      item: {
-        name: "blueberry bagels",
-        category: "BAKED_GOODS",
-      },
-      quantityNeeded: 1,
-      unit: "PACKAGE",
-    },
-    {
-      item: {
-        name: "banana",
-        category: "PRODUCE",
-      },
-      quantityNeeded: 23,
-      unit: null,
-    },
-    {
-      item: {
-        name: "chicken breast",
-        category: "MEAT",
-      },
-      quantityNeeded: 5,
-      unit: "POUND",
-    },
   ],
+  createdAt: "2022-07-02T03:53:56.122Z",
+  updatedAt: "2022-07-02T03:42:46.214Z",
 };
 
 function renderList() {

@@ -15,7 +15,7 @@ export type ListProps = {
 };
 
 export const List: React.FC<ListProps> = ({ data }) => {
-  const categories = data?.list.items
+  const categories = data?.list?.items
     .reduce(
       (acc: string[], { item }) =>
         acc.includes(item.category) ? acc : [...acc, item.category],

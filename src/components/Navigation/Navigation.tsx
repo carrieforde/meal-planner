@@ -1,7 +1,7 @@
-import BookIcon from "@mui/icons-material/Book";
 import CalendarMonthIcon from "@mui/icons-material/CalendarToday";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import MenuIcon from "@mui/icons-material/Menu";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   Box,
@@ -56,7 +56,7 @@ export const Navigation = () => {
 
             <ListItem>
               <ListItemIcon>
-                <BookIcon />
+                <MenuBookIcon />
               </ListItemIcon>
               <ListItemText primary={<Link to="/recipes">Recipes</Link>} />
             </ListItem>
@@ -74,9 +74,7 @@ export const Navigation = () => {
               <ListItemIcon>
                 <InventoryIcon />
               </ListItemIcon>
-              <ListItemText
-                primary={<Link to="/item-inventory">Item Inventory</Link>}
-              />
+              <ListItemText primary={<Link to="/catalog">Catalog</Link>} />
             </ListItem>
           </List>
         </Box>
