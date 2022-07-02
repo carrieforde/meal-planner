@@ -1,6 +1,12 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { ItemInventory, MealPlans, Recipes, ShoppingList } from "views";
+import {
+  Catalog,
+  ItemInventory,
+  MealPlans,
+  Recipes,
+  ShoppingList,
+} from "views";
 
 export const App: React.FC = () => (
   <Routes>
@@ -9,5 +15,6 @@ export const App: React.FC = () => (
     <Route path="item-inventory" element={<ItemInventory />} />
     <Route path="recipes" element={<Recipes />} />
     <Route path="meal-plans" element={<MealPlans />} />
+    <Route path="catalog" element={<Catalog />} />
   </Routes>
 );
