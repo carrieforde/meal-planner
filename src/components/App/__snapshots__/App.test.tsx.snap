@@ -23,7 +23,7 @@ exports[`App should render the App component consistently 1`] = `
     />
   </button>
   <main
-    class="MuiBox-root css-1ourwbl"
+    class="MuiBox-root css-lkx013"
   >
     <div
       class="MuiBox-root css-11od68z"

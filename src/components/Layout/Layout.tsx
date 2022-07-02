@@ -12,6 +12,9 @@ export const Layout: React.FC = ({ children }) => (
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+        width: "100%",
+        paddingLeft: 3,
+        paddingRight: 3,
       }}
     >
       {children}
