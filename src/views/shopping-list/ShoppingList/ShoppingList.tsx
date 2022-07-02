@@ -1,16 +1,15 @@
 import { Typography } from "@mui/material";
 import { Layout, QueryHandler } from "components";
-import { useShoppingListQuery } from "generated/graphql";
-import { List } from "../components/List/List";
+import { useGetShoppingListQuery } from "generated/graphql";
 
 export const ShoppingList = () => {
-  const { data, error, loading } = useShoppingListQuery();
+  const { data, error, loading } = useGetShoppingListQuery();
 
   return (
     <QueryHandler data={data} error={error} loading={loading}>
       <Layout>
         <Typography component="h1">Shopping List</Typography>
-        <List data={data} />
+        {/* <List data={data} /> */}
       </Layout>
     </QueryHandler>
   );

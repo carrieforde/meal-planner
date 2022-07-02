@@ -1,15 +1,19 @@
 import { gql } from "@apollo/client";
 
 export const SHOPPING_LIST = gql`
-  query ShoppingList {
-    shoppingList {
-      item {
-        itemName
-        category
+  query getShoppingList {
+    list {
+      items {
+        item {
+          name
+          category
+          defaultUnit
+        }
+        quantityNeeded
+        unit
       }
-      quantityNeeded
-      unit
-      inCart
+      createdAt
+      updatedAt
     }
   }
 `;

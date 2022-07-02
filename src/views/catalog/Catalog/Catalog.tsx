@@ -1,3 +1,11 @@
+import { Typography } from "@mui/material";
+import { Layout } from "components";
 import React from "react";
 
-export const Catalog = () => <h1>Catalog</h1>;
+export const Catalog = () => {
+  return (
+    <Layout>
+      <Typography component="h1">Catalog</Typography>
+    </Layout>
+  );
+};

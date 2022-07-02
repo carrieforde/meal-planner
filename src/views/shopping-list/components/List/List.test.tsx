@@ -1,72 +1,70 @@
 import { render, screen } from "@testing-library/react";
 import { List } from "./List";
 
-const shoppingList = [
-  {
-    item: {
-      itemName: "carrot",
-      category: "PRODUCE",
+const list = {
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  items: [
+    {
+      item: {
+        name: "carrot",
+        category: "PRODUCE",
+      },
+      quantityNeeded: 2,
+      unit: null,
     },
-    quantityNeeded: 2,
-    unit: null,
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "milk",
-      category: "DAIRY",
+    {
+      item: {
+        name: "milk",
+        category: "DAIRY",
+      },
+      quantityNeeded: 1,
+      unit: "GALLON",
     },
-    quantityNeeded: 1,
-    unit: "GALLON",
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "carrot cake",
-      category: "BAKED_GOODS",
+    {
+      item: {
+        name: "carrot cake",
+        category: "BAKED_GOODS",
+      },
+      quantityNeeded: 5,
+      unit: null,
     },
-    quantityNeeded: 5,
-    unit: null,
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "blueberry bagels",
-      category: "BAKED_GOODS",
+    {
+      item: {
+        name: "blueberry bagels",
+        category: "BAKED_GOODS",
+      },
+      quantityNeeded: 1,
+      unit: "PACKAGE",
     },
-    quantityNeeded: 1,
-    unit: "PACKAGE",
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "banana",
-      category: "PRODUCE",
+    {
+      item: {
+        name: "banana",
+        category: "PRODUCE",
+      },
+      quantityNeeded: 23,
+      unit: null,
     },
-    quantityNeeded: 23,
-    unit: null,
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "chicken breast",
-      category: "MEAT",
+    {
+      item: {
+        name: "chicken breast",
+        category: "MEAT",
+      },
+      quantityNeeded: 5,
+      unit: "POUND",
     },
-    quantityNeeded: 5,
-    unit: "POUND",
-    inCart: null,
-  },
-];
+  ],
+};
 
 function renderList() {
-  render(<List data={{ shoppingList }} />);
+  render(<List data={{ list }} />);
 }
 
 describe("List", () => {
   it("should render four categories", () => {
     renderList();
 
-    shoppingList
+    list.items
       .reduce(
         (acc: string[], { item }) =>
           acc.includes(item.category) ? acc : [...acc, item.category],
@@ -80,8 +78,8 @@ describe("List", () => {
   it("should render all items", () => {
     renderList();
 
-    shoppingList.forEach(({ item: { itemName } }) =>
-      expect(screen.getByTestId(itemName)).toBeInTheDocument()
+    list.items.forEach(({ item: { name } }) =>
+      expect(screen.getByTestId(name)).toBeInTheDocument()
     );
   });
 });

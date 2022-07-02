@@ -5,17 +5,17 @@ import {
   ListItemText,
 } from "@mui/material";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { ShoppingListQuery } from "generated/graphql";
+import { GetShoppingListQuery } from "generated/graphql";
 import React from "react";
 import { getText } from "utilities";
 import { ShoppingCategories, shoppingCategoriesMap } from "@constants";
 
 export type ListProps = {
-  data?: ShoppingListQuery;
+  data?: GetShoppingListQuery;
 };
 
 export const List: React.FC<ListProps> = ({ data }) => {
-  const categories = data?.shoppingList
+  const categories = data?.list.items
     .reduce(
       (acc: string[], { item }) =>
         acc.includes(item.category) ? acc : [...acc, item.category],
@@ -40,16 +40,16 @@ export const List: React.FC<ListProps> = ({ data }) => {
           />
 
           <MuiList>
-            {data?.shoppingList
+            {data?.list.items
               .filter(({ item }) => item.category === category)
-              .sort((a, b) => a.item.itemName.localeCompare(b.item.itemName))
-              .map(({ item: { itemName }, inCart, quantityNeeded, unit }) => (
-                <ListItem key={itemName} data-testid={itemName}>
+              .sort((a, b) => a.item.name.localeCompare(b.item.name))
+              .map(({ item: { name }, quantityNeeded, unit }) => (
+                <ListItem key={name} data-testid={name}>
                   <ListItemIcon>
-                    <CheckBoxIcon color={inCart ? "success" : "disabled"} />
+                    <CheckBoxIcon />
                   </ListItemIcon>
                   <ListItemText
-                    primary={getText({ itemName, quantityNeeded, unit })}
+                    primary={getText({ itemName: name, quantityNeeded, unit })}
                   />
                 </ListItem>
               ))}
