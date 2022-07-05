@@ -4,9 +4,8 @@ to: src/store/slices/<%= name %>/<%= name %>.ts
 
 import { useEffect, useState } from "react";
 import { Reducer } from "redux";
-import store from "store";
+import { store } from "store";
 import { getState, injectReducer, subscribe } from "store/utilities/utilities";
-import { <%= Name %>State } from "./<%= name %>.interface";
 
 export interface <%= Name %>State {}
 

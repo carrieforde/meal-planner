@@ -10,6 +10,7 @@ import {
 import { isEmpty } from "lodash";
 import React, { FormEvent, useState } from "react";
 import {
+  resetDialog,
   setSnackbarMessage,
   setSnackbarOpen,
   setSnackbarSeverity,
@@ -31,13 +32,7 @@ const defaultAddCatalogItemFormValues: AddCatalogItemMutationVariables["input"] 
     defaultUnit: "",
   };
 
-type AddCatalogItemFormProps = {
-  onClose: () => void;
-};
-
-export const AddCatalogItemForm: React.FC<AddCatalogItemFormProps> = ({
-  onClose,
-}) => {
+export const AddCatalogItemForm: React.FC = () => {
   const [values, setValues] = useState(defaultAddCatalogItemFormValues);
 
   const [addCatalogItem, { loading }] = useAddCatalogItemMutation({
@@ -54,7 +49,7 @@ export const AddCatalogItemForm: React.FC<AddCatalogItemFormProps> = ({
         data.addCatalogItem.code === 200 ? "success" : "error"
       );
       setSnackbarOpen();
-      onClose();
+      resetDialog();
     },
     refetchQueries: [
       {

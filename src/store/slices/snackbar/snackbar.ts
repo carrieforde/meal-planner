@@ -5,7 +5,7 @@ import { store } from "store";
 import { getState, injectReducer, subscribe } from "store/utilities/utilities";
 
 export interface SnackbarState {
-  isOpen: boolean;
+  isSnackbarOpen: boolean;
   severity: AlertProps["severity"] | null;
   message: null;
 }
@@ -13,7 +13,7 @@ export interface SnackbarState {
 const STORE_KEY = "snackbar";
 
 export const initialSnackbarState = {
-  isOpen: false,
+  isSnackbarOpen: false,
   severity: null,
   message: null,
 };
@@ -26,10 +26,10 @@ const reducers: Record<string, Reducer> = {
     return { ...state, severity: payload };
   },
   setOpen(state) {
-    return { ...state, isOpen: true };
+    return { ...state, isSnackbarOpen: true };
   },
   reset(state) {
-    return { ...state, isOpen: false, severity: null, message: null };
+    return { ...state, isSnackbarOpen: false, severity: null, message: null };
   },
 };
 

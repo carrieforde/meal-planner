@@ -11,6 +11,7 @@ import {
 import { isEmpty } from "lodash";
 import { FormEvent, useState } from "react";
 import {
+  resetDialog,
   setSnackbarMessage,
   setSnackbarOpen,
   setSnackbarSeverity,
@@ -28,13 +29,7 @@ const defaultAddShoppingItemFormValues: AddItemToListMutationVariables["input"] 
     quantityNeeded: 0,
   };
 
-type AddShoppingItemFormProps = {
-  onClose: () => void;
-};
-
-export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
-  onClose,
-}) => {
+export const AddShoppingItemForm: React.FC = () => {
   const [values, setValues] = useState(defaultAddShoppingItemFormValues);
 
   const { data, error, loading } = useGetCatalogQuery();
@@ -54,7 +49,7 @@ export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
           data.addItemToList?.code === 200 ? "success" : "error"
         );
         setSnackbarOpen();
-        onClose();
+        resetDialog();
       },
       refetchQueries: [
         {
@@ -65,9 +60,6 @@ export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    // eslint-disable-next-line no-console
-    console.log(values);
 
     addShoppingListItem();
   };
