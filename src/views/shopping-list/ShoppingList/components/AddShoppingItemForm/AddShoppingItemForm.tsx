@@ -1,0 +1,134 @@
+import { UnitMap } from "@constants";
+import { LoadingButton } from "@mui/lab";
+import { Autocomplete, TextField, Typography } from "@mui/material";
+import { Form, Input, QueryHandler, Select } from "components";
+import {
+  AddItemToListMutationVariables,
+  GetShoppingListDocument,
+  useAddItemToListMutation,
+  useGetCatalogQuery,
+} from "generated/graphql";
+import { isEmpty } from "lodash";
+import { FormEvent, useState } from "react";
+import {
+  setSnackbarMessage,
+  setSnackbarOpen,
+  setSnackbarSeverity,
+} from "store";
+
+const unitOptions = Object.entries(UnitMap).map(([value, label]) => ({
+  value,
+  label,
+}));
+
+const defaultAddShoppingItemFormValues: AddItemToListMutationVariables["input"] =
+  {
+    itemId: "",
+    unit: "",
+    quantityNeeded: 0,
+  };
+
+type AddShoppingItemFormProps = {
+  onClose: () => void;
+};
+
+export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
+  onClose,
+}) => {
+  const [values, setValues] = useState(defaultAddShoppingItemFormValues);
+
+  const { data, error, loading } = useGetCatalogQuery();
+
+  const [addShoppingListItem, { loading: addItemToListLoading }] =
+    useAddItemToListMutation({
+      variables: {
+        input: {
+          itemId: values.itemId,
+          unit: !isEmpty(values.unit) ? values.unit : null,
+          quantityNeeded: parseInt(values.quantityNeeded.toString()),
+        },
+      },
+      onCompleted(data) {
+        setSnackbarMessage(data.addItemToList?.message ?? "");
+        setSnackbarSeverity(
+          data.addItemToList?.code === 200 ? "success" : "error"
+        );
+        setSnackbarOpen();
+        onClose();
+      },
+      refetchQueries: [
+        {
+          query: GetShoppingListDocument,
+        },
+      ],
+    });
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    // eslint-disable-next-line no-console
+    console.log(values);
+
+    addShoppingListItem();
+  };
+
+  const handleChange = (event: any) => {
+    setValues((s) => ({ ...s, [event.target.name]: event.target.value }));
+  };
+
+  return (
+    <QueryHandler data={data} error={error} loading={loading}>
+      <Form
+        title="Add Item to List"
+        onSubmit={handleSubmit}
+        actions={
+          <LoadingButton
+            loading={addItemToListLoading}
+            loadingPosition="start"
+            type="submit"
+            variant="contained"
+          >
+            <Typography
+              component="span"
+              sx={{ marginLeft: loading ? "28px" : 0 }}
+            >
+              Add to List
+            </Typography>
+          </LoadingButton>
+        }
+      >
+        {data?.catalog.length && (
+          <Autocomplete
+            disablePortal
+            id="itemId"
+            options={data.catalog}
+            sx={{ width: "100%" }}
+            renderInput={(params) => <TextField {...params} label="Item" />}
+            getOptionLabel={(option) => option.name}
+            onChange={(_, value) =>
+              setValues((s) => ({ ...s, itemId: value?.id as string }))
+            }
+          />
+        )}
+
+        <Input
+          variant="outlined"
+          type="number"
+          name="quantityNeeded"
+          value={values.quantityNeeded}
+          label="Quantity Needed"
+          onChange={handleChange}
+        />
+
+        <Select
+          label="Unit"
+          id="unit"
+          name="unit"
+          value={values.unit as string}
+          onChange={handleChange}
+          options={unitOptions}
+        />
+      </Form>
+    </QueryHandler>
+  );
+};

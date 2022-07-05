@@ -1,27 +1,33 @@
+import { ShoppingCategories, shoppingCategoriesMap } from "@constants";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import {
   List as MuiList,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { ShoppingListQuery } from "generated/graphql";
+import {
+  GetShoppingListQuery,
+  useAddItemToCartMutation,
+} from "generated/graphql";
 import React from "react";
 import { getText } from "utilities";
-import { ShoppingCategories, shoppingCategoriesMap } from "@constants";
 
 export type ListProps = {
-  data?: ShoppingListQuery;
+  data?: GetShoppingListQuery;
 };
 
 export const List: React.FC<ListProps> = ({ data }) => {
-  const categories = data?.shoppingList
+  const categories = data?.list.items
     .reduce(
-      (acc: string[], { item }) =>
+      (acc: string[], item) =>
         acc.includes(item.category) ? acc : [...acc, item.category],
       []
     )
     .sort((a, b) => a.localeCompare(b));
+
+  const [addItemToCart, { loading }] = useAddItemToCartMutation();
 
   if (!categories?.length) {
     return <p>No items on list</p>;
@@ -40,17 +46,32 @@ export const List: React.FC<ListProps> = ({ data }) => {
           />
 
           <MuiList>
-            {data?.shoppingList
-              .filter(({ item }) => item.category === category)
-              .sort((a, b) => a.item.itemName.localeCompare(b.item.itemName))
-              .map(({ item: { itemName }, inCart, quantityNeeded, unit }) => (
-                <ListItem key={itemName} data-testid={itemName}>
-                  <ListItemIcon>
-                    <CheckBoxIcon color={inCart ? "success" : "disabled"} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={getText({ itemName, quantityNeeded, unit })}
-                  />
+            {data?.list.items
+              .filter((item) => item.category === category)
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(({ name, id, quantityNeeded, unit, inCart }) => (
+                <ListItem key={name} data-testid={name}>
+                  <ListItemButton
+                    disabled={loading}
+                    onClick={() => addItemToCart({ variables: { itemId: id } })}
+                  >
+                    <ListItemIcon>
+                      <CheckBoxIcon color={inCart ? "success" : "disabled"} />
+                    </ListItemIcon>
+
+                    <ListItemText
+                      primary={getText({
+                        itemName: name,
+                        quantityNeeded,
+                        unit,
+                      })}
+                      primaryTypographyProps={{
+                        sx: {
+                          textDecoration: inCart ? "line-through" : "none",
+                        },
+                      }}
+                    />
+                  </ListItemButton>
                 </ListItem>
               ))}
           </MuiList>

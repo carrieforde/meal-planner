@@ -2,6 +2,8 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { ReactNode } from "react";
+import { useSnackbarStateMock } from "test-utilities/test-state";
+import { list } from "../components/List/List.test";
 import { SHOPPING_LIST } from "./query.graphql";
 import { ShoppingList } from "./ShoppingList";
 
@@ -11,17 +13,7 @@ const shoppingListMock = {
   },
   result: {
     data: {
-      shoppingList: [
-        {
-          item: {
-            itemName: "carrot",
-            category: "PRODUCE",
-          },
-          quantityNeeded: 2,
-          unit: null,
-          inCart: null,
-        },
-      ],
+      list,
     },
   },
   error: undefined,
@@ -59,6 +51,10 @@ function renderShoppingList(errorType?: "network" | "graphql") {
 }
 
 describe("ShoppingList", () => {
+  beforeEach(() => {
+    useSnackbarStateMock();
+  });
+
   it("should show the loading state", () => {
     renderShoppingList();
     expect(screen.getByRole("progressbar")).toBeInTheDocument();

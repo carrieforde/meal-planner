@@ -1,74 +1,65 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
 import { List } from "./List";
 
-const shoppingList = [
-  {
-    item: {
-      itemName: "carrot",
+export const list = {
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  items: [
+    {
+      id: "carrot",
       category: "PRODUCE",
+      defaultUnit: null,
+      name: "carrot",
+      catalogId: "carrot",
+      quantityNeeded: 10,
+      unit: null,
     },
-    quantityNeeded: 2,
-    unit: null,
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "milk",
+    {
+      id: "lemon",
+      category: "PRODUCE",
+      defaultUnit: null,
+      name: "lemon",
+      catalogId: "lemon",
+      quantityNeeded: 5,
+      unit: null,
+    },
+    {
+      id: "lemon",
+      category: "BAKING_SUPPLIES",
+      defaultUnit: null,
+      name: "flour",
+      catalogId: "lemon",
+      quantityNeeded: 2,
+      unit: "POUNDS",
+    },
+    {
+      id: "blueberry cream cheese",
       category: "DAIRY",
+      defaultUnit: null,
+      name: "blueberry cream cheese",
+      catalogId: "blueberry cream cheese",
+      quantityNeeded: 2,
+      unit: null,
     },
-    quantityNeeded: 1,
-    unit: "GALLON",
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "carrot cake",
-      category: "BAKED_GOODS",
-    },
-    quantityNeeded: 5,
-    unit: null,
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "blueberry bagels",
-      category: "BAKED_GOODS",
-    },
-    quantityNeeded: 1,
-    unit: "PACKAGE",
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "banana",
-      category: "PRODUCE",
-    },
-    quantityNeeded: 23,
-    unit: null,
-    inCart: null,
-  },
-  {
-    item: {
-      itemName: "chicken breast",
-      category: "MEAT",
-    },
-    quantityNeeded: 5,
-    unit: "POUND",
-    inCart: null,
-  },
-];
+  ],
+};
+
+const wrapper: React.FC = ({ children }) => (
+  <MockedProvider>{children}</MockedProvider>
+);
 
 function renderList() {
-  render(<List data={{ shoppingList }} />);
+  render(<List data={{ list }} />, { wrapper });
 }
 
 describe("List", () => {
   it("should render four categories", () => {
     renderList();
 
-    shoppingList
+    list.items
       .reduce(
-        (acc: string[], { item }) =>
+        (acc: string[], item) =>
           acc.includes(item.category) ? acc : [...acc, item.category],
         []
       )
@@ -80,8 +71,8 @@ describe("List", () => {
   it("should render all items", () => {
     renderList();
 
-    shoppingList.forEach(({ item: { itemName } }) =>
-      expect(screen.getByTestId(itemName)).toBeInTheDocument()
+    list.items.forEach(({ name }) =>
+      expect(screen.getByTestId(name)).toBeInTheDocument()
     );
   });
 });
