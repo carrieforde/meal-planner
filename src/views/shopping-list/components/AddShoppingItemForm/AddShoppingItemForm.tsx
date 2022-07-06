@@ -43,10 +43,10 @@ export const AddShoppingItemForm: React.FC = () => {
           quantityNeeded: parseInt(values.quantityNeeded.toString()),
         },
       },
-      onCompleted(data) {
-        setSnackbarMessage(data.addItemToList?.message ?? "");
+      onCompleted(response) {
+        setSnackbarMessage(response.addItemToList?.message ?? "");
         setSnackbarSeverity(
-          data.addItemToList?.code === 200 ? "success" : "error"
+          response.addItemToList?.code === 200 ? "success" : "error"
         );
         setSnackbarOpen();
         resetDialog();
