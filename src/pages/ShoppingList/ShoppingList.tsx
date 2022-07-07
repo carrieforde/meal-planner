@@ -4,7 +4,7 @@ import { Fab, Typography } from "@mui/material";
 import { Layout, QueryHandler } from "components";
 import { useGetShoppingListQuery } from "generated/graphql";
 import { setDialogOpen, setDialogType } from "store";
-import { List } from "../components";
+import { List } from "components";
 
 export const ShoppingList = () => {
   const { data, error, loading } = useGetShoppingListQuery();

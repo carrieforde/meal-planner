@@ -1,9 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
-import { AddShoppingItemForm } from "views";
-import React from "react";
-import { AddItemToListDocument, GetCatalogDocument } from "generated/graphql";
+
 import userEvent from "@testing-library/user-event";
+import { AddItemToListDocument, GetCatalogDocument } from "generated/graphql";
+import React from "react";
+import { AddShoppingItemForm } from "./AddShoppingItemForm";
 
 const catalogMock = {
   request: {
