@@ -7,7 +7,7 @@ import {
   useSnackbarStateMock,
 } from "test-utilities/test-state";
 import { list } from "../components/List/List.test";
-import { SHOPPING_LIST } from "./query.graphql";
+import { SHOPPING_LIST } from "../query.graphql";
 import { ShoppingList } from "./ShoppingList";
 
 const shoppingListMock = {
