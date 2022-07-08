@@ -1,10 +1,9 @@
-import { Alert, Box, Snackbar } from "@mui/material";
+import { Box } from "@mui/material";
+import { Dialog } from "components/Dialog";
 import { Navigation } from "components/Navigation";
-import { resetSnackbar, useSnackbarState } from "store";
+import { Snackbar } from "components/Snackbar";
 
 export const Layout: React.FC = ({ children }) => {
-  const { isOpen, message, severity } = useSnackbarState();
-
   return (
     <>
       <Navigation />
@@ -24,13 +23,9 @@ export const Layout: React.FC = ({ children }) => {
       >
         {children}
 
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={isOpen}
-          onClose={resetSnackbar}
-        >
-          <Alert severity={severity ?? "success"}>{message}</Alert>
-        </Snackbar>
+        <Dialog />
+
+        <Snackbar />
       </Box>
     </>
   );

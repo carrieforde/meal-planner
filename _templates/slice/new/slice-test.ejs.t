@@ -1,7 +1,7 @@
 ---
-to: src/store/slices/<%= name %>/<%= name %>.spec.ts
+to: src/store/slices/<%= name %>/<%= name %>.test.ts
 ---
-import store from "store";
+import { store } from "store";
 import { renderHook } from "@testing-library/react-hooks";
 import { initial<%= Name %>State, use<%= Name %>State } from "./<%= name %>";
 

@@ -1,0 +1,4 @@
+export enum DialogType {
+  ADD_CATALOG_ITEM = "ADD_CATALOG_ITEM",
+  ADD_LIST_ITEM = "ADD_LIST_ITEM",
+}

@@ -1,11 +1,12 @@
 import {
+  DialogType,
   ShoppingCategories,
   shoppingCategoriesMap,
   UnitMap,
   Units,
 } from "@constants";
 import AddIcon from "@mui/icons-material/Add";
-import { Box, Dialog, Fab, IconButton, Typography } from "@mui/material";
+import { Box, Fab, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Layout, QueryHandler } from "components";
 import {
@@ -13,8 +14,8 @@ import {
   useAddItemToListMutation,
   useGetCatalogQuery,
 } from "generated/graphql";
-import React, { useState } from "react";
-import { AddCatalogItemForm } from "../components";
+import React from "react";
+import { setDialogOpen, setDialogType } from "store";
 
 const AddToList: React.FC<CatalogItem> = ({ id }) => {
   const [addItemToList] = useAddItemToListMutation({
@@ -46,8 +47,6 @@ function mapCatalogItem({ id, name, defaultUnit, category }: CatalogItem) {
 export const Catalog = () => {
   const { data, error, loading } = useGetCatalogQuery();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const columns: GridColDef[] = [
     {
       field: "add",
@@ -72,9 +71,10 @@ export const Catalog = () => {
 
   const rows = data?.catalog.map((item) => mapCatalogItem(item));
 
-  const handleFabClick = () => setIsDialogOpen(true);
-
-  const handleClose = () => setIsDialogOpen(false);
+  const handleFabClick = () => {
+    setDialogType(DialogType.ADD_CATALOG_ITEM);
+    setDialogOpen();
+  };
 
   return (
     <Layout>
@@ -94,10 +94,6 @@ export const Catalog = () => {
         >
           <AddIcon />
         </Fab>
-
-        <Dialog open={isDialogOpen} onClose={handleClose}>
-          <AddCatalogItemForm onClose={handleClose} />
-        </Dialog>
       </QueryHandler>
     </Layout>
   );

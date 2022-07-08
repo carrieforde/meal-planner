@@ -2,9 +2,12 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { ReactNode } from "react";
-import { useSnackbarStateMock } from "test-utilities/test-state";
-import { list } from "../components/List/List.test";
-import { SHOPPING_LIST } from "./query.graphql";
+import {
+  useDialogStateMock,
+  useSnackbarStateMock,
+} from "test-utilities/test-state";
+import { list } from "../../components/List/List.test";
+import { SHOPPING_LIST } from "../../queries/shopping-list.graphql";
 import { ShoppingList } from "./ShoppingList";
 
 const shoppingListMock = {
@@ -53,6 +56,7 @@ function renderShoppingList(errorType?: "network" | "graphql") {
 describe("ShoppingList", () => {
   beforeEach(() => {
     useSnackbarStateMock();
+    useDialogStateMock();
   });
 
   it("should show the loading state", () => {

@@ -1,7 +1,7 @@
-import { shoppingCategoriesMap, UnitMap } from "@constants";
+import { shoppingCategoriesMap } from "@constants";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Typography } from "@mui/material";
-import { Form, Input, Select } from "components";
+import { Form, Input, Select, UnitSelect } from "components";
 import {
   AddCatalogItemMutationVariables,
   GetCatalogDocument,
@@ -10,15 +10,11 @@ import {
 import { isEmpty } from "lodash";
 import React, { FormEvent, useState } from "react";
 import {
+  resetDialog,
   setSnackbarMessage,
   setSnackbarOpen,
   setSnackbarSeverity,
 } from "store";
-
-const defaultUnitOptions = Object.entries(UnitMap).map(([value, label]) => ({
-  value,
-  label,
-}));
 
 const categoryOptions = Object.entries(shoppingCategoriesMap).map(
   ([value, label]) => ({ value, label })
@@ -31,13 +27,7 @@ const defaultAddCatalogItemFormValues: AddCatalogItemMutationVariables["input"] 
     defaultUnit: "",
   };
 
-type AddCatalogItemFormProps = {
-  onClose: () => void;
-};
-
-export const AddCatalogItemForm: React.FC<AddCatalogItemFormProps> = ({
-  onClose,
-}) => {
+export const AddCatalogItemForm: React.FC = () => {
   const [values, setValues] = useState(defaultAddCatalogItemFormValues);
 
   const [addCatalogItem, { loading }] = useAddCatalogItemMutation({
@@ -54,7 +44,7 @@ export const AddCatalogItemForm: React.FC<AddCatalogItemFormProps> = ({
         data.addCatalogItem.code === 200 ? "success" : "error"
       );
       setSnackbarOpen();
-      onClose();
+      resetDialog();
     },
     refetchQueries: [
       {
@@ -100,13 +90,11 @@ export const AddCatalogItemForm: React.FC<AddCatalogItemFormProps> = ({
         label="Ingredient Name"
       />
 
-      <Select
+      <UnitSelect
         label="Default Unit"
-        id="defaultUnit"
         name="defaultUnit"
         value={values.defaultUnit as string}
         onChange={handleChange}
-        options={defaultUnitOptions}
       />
 
       <Select

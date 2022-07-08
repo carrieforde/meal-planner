@@ -1,19 +1,18 @@
+import { DialogType } from "@constants";
 import AddIcon from "@mui/icons-material/Add";
-import { Dialog, Fab, Typography } from "@mui/material";
+import { Fab, Typography } from "@mui/material";
 import { Layout, QueryHandler } from "components";
 import { useGetShoppingListQuery } from "generated/graphql";
-import { useState } from "react";
-import { List } from "../components";
-import { AddShoppingItemForm } from "./components";
+import { setDialogOpen, setDialogType } from "store";
+import { List } from "components";
 
 export const ShoppingList = () => {
   const { data, error, loading } = useGetShoppingListQuery();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const handleClose = () => setIsDialogOpen(false);
-
-  const handleFabClick = () => setIsDialogOpen(true);
+  const handleFabClick = () => {
+    setDialogType(DialogType.ADD_LIST_ITEM);
+    setDialogOpen();
+  };
 
   return (
     <QueryHandler data={data} error={error} loading={loading}>
@@ -29,10 +28,6 @@ export const ShoppingList = () => {
         >
           <AddIcon />
         </Fab>
-
-        <Dialog open={isDialogOpen} onClose={handleClose}>
-          <AddShoppingItemForm onClose={handleClose} />
-        </Dialog>
       </Layout>
     </QueryHandler>
   );

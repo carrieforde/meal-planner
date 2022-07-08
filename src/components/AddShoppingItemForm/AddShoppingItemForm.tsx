@@ -1,7 +1,6 @@
-import { UnitMap } from "@constants";
 import { LoadingButton } from "@mui/lab";
 import { Autocomplete, TextField, Typography } from "@mui/material";
-import { Form, Input, QueryHandler, Select } from "components";
+import { Form, Input, QueryHandler, UnitSelect } from "components";
 import {
   AddItemToListMutationVariables,
   GetShoppingListDocument,
@@ -11,15 +10,11 @@ import {
 import { isEmpty } from "lodash";
 import { FormEvent, useState } from "react";
 import {
+  resetDialog,
   setSnackbarMessage,
   setSnackbarOpen,
   setSnackbarSeverity,
 } from "store";
-
-const unitOptions = Object.entries(UnitMap).map(([value, label]) => ({
-  value,
-  label,
-}));
 
 const defaultAddShoppingItemFormValues: AddItemToListMutationVariables["input"] =
   {
@@ -28,13 +23,7 @@ const defaultAddShoppingItemFormValues: AddItemToListMutationVariables["input"] 
     quantityNeeded: 0,
   };
 
-type AddShoppingItemFormProps = {
-  onClose: () => void;
-};
-
-export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
-  onClose,
-}) => {
+export const AddShoppingItemForm: React.FC = () => {
   const [values, setValues] = useState(defaultAddShoppingItemFormValues);
 
   const { data, error, loading } = useGetCatalogQuery();
@@ -48,13 +37,13 @@ export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
           quantityNeeded: parseInt(values.quantityNeeded.toString()),
         },
       },
-      onCompleted(data) {
-        setSnackbarMessage(data.addItemToList?.message ?? "");
+      onCompleted(response) {
+        setSnackbarMessage(response.addItemToList?.message ?? "");
         setSnackbarSeverity(
-          data.addItemToList?.code === 200 ? "success" : "error"
+          response.addItemToList?.code === 200 ? "success" : "error"
         );
         setSnackbarOpen();
-        onClose();
+        resetDialog();
       },
       refetchQueries: [
         {
@@ -65,9 +54,6 @@ export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    // eslint-disable-next-line no-console
-    console.log(values);
 
     addShoppingListItem();
   };
@@ -84,13 +70,12 @@ export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
         actions={
           <LoadingButton
             loading={addItemToListLoading}
-            loadingPosition="start"
             type="submit"
             variant="contained"
           >
             <Typography
               component="span"
-              sx={{ marginLeft: loading ? "28px" : 0 }}
+              sx={{ marginLeft: addItemToListLoading ? "28px" : 0 }}
             >
               Add to List
             </Typography>
@@ -120,14 +105,7 @@ export const AddShoppingItemForm: React.FC<AddShoppingItemFormProps> = ({
           onChange={handleChange}
         />
 
-        <Select
-          label="Unit"
-          id="unit"
-          name="unit"
-          value={values.unit as string}
-          onChange={handleChange}
-          options={unitOptions}
-        />
+        <UnitSelect value={values.unit as string} onChange={handleChange} />
       </Form>
     </QueryHandler>
   );
