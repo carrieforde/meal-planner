@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { Catalog, MealPlans, Recipes, ShoppingList } from "views";
+import { Catalog, MealPlans, Recipes, ShoppingList } from "pages";
 
 export const App: React.FC = () => (
   <Routes>

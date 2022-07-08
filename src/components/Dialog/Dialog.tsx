@@ -1,8 +1,9 @@
 import { DialogType } from "@constants";
 import { Dialog as MuiDialog } from "@mui/material";
+import { AddCatalogItemForm } from "components/AddCatalogItemForm";
+import { AddShoppingItemForm } from "components/AddShoppingItemForm";
 import { ReactNode } from "react";
 import { resetDialog, useDialogState } from "store";
-import { AddCatalogItemForm, AddShoppingItemForm } from "views";
 
 export const dialogContent: Record<DialogType, () => ReactNode> = {
   [DialogType.ADD_CATALOG_ITEM]: () => <AddCatalogItemForm />,
