@@ -1,19 +1,10 @@
-import {
-  DialogType,
-  ShoppingCategories,
-  shoppingCategoriesMap,
-  UnitMap,
-  Units,
-} from "@constants";
+import { DialogType } from "@constants";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Layout, QueryHandler } from "components";
-import {
-  CatalogItem,
-  useAddItemToListMutation,
-  useGetCatalogQuery,
-} from "generated/graphql";
+import { CatalogItem, useAddItemToListMutation } from "generated/graphql";
+import { useCatalogItems } from "hooks";
 import React from "react";
 import { setDialogOpen, setDialogType } from "store";
 
@@ -35,17 +26,8 @@ const AddToList: React.FC<CatalogItem> = ({ id }) => {
   );
 };
 
-function mapCatalogItem({ id, name, defaultUnit, category }: CatalogItem) {
-  return {
-    id,
-    name,
-    defaultUnit: UnitMap[defaultUnit as Units],
-    category: shoppingCategoriesMap[category as ShoppingCategories],
-  };
-}
-
 export const Catalog = () => {
-  const { data, error, loading } = useGetCatalogQuery();
+  const { data, error, loading, catalogRowData: rows } = useCatalogItems();
 
   const columns: GridColDef[] = [
     {
@@ -69,8 +51,6 @@ export const Catalog = () => {
     },
   ];
 
-  const rows = data?.catalog.map((item) => mapCatalogItem(item));
-
   const handleFabClick = () => {
     setDialogType(DialogType.ADD_CATALOG_ITEM);
     setDialogOpen();
@@ -81,12 +61,13 @@ export const Catalog = () => {
       <QueryHandler data={data} error={error} loading={loading}>
         <Typography component="h1">Catalog</Typography>
         {rows?.length && (
-          <Box sx={{ width: "100%", height: "650px" }}>
-            <DataGrid columns={columns} rows={rows} />
+          <Box sx={{ width: "100%" }}>
+            <DataGrid autoHeight columns={columns} rows={rows} />
           </Box>
         )}
 
         <Fab
+          data-testid="addCatalogItem"
           color="primary"
           aria-label="Add Catalog Item"
           sx={{ position: "fixed", bottom: 32, right: 32 }}
