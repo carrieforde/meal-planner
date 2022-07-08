@@ -4,9 +4,11 @@ import { render, screen } from "@testing-library/react";
 import { useDialogStateMock } from "test-utilities/test-state";
 import { Dialog } from "./Dialog";
 
-jest.mock("views", () => ({
-  ...jest.requireActual("views"),
+jest.mock("components/AddCatalogItemForm", () => ({
   AddCatalogItemForm: () => <div data-testid="addCatalogItem" />,
+}));
+
+jest.mock("components/AddShoppingItemForm", () => ({
   AddShoppingItemForm: () => <div data-testid="addShoppingItem" />,
 }));
 

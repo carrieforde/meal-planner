@@ -1,7 +1,6 @@
-import { UnitMap } from "@constants";
 import { LoadingButton } from "@mui/lab";
 import { Autocomplete, TextField, Typography } from "@mui/material";
-import { Form, Input, QueryHandler, Select } from "components";
+import { Form, Input, QueryHandler, UnitSelect } from "components";
 import {
   AddItemToListMutationVariables,
   GetShoppingListDocument,
@@ -16,11 +15,6 @@ import {
   setSnackbarOpen,
   setSnackbarSeverity,
 } from "store";
-
-const unitOptions = Object.entries(UnitMap).map(([value, label]) => ({
-  value,
-  label,
-}));
 
 const defaultAddShoppingItemFormValues: AddItemToListMutationVariables["input"] =
   {
@@ -43,10 +37,10 @@ export const AddShoppingItemForm: React.FC = () => {
           quantityNeeded: parseInt(values.quantityNeeded.toString()),
         },
       },
-      onCompleted(data) {
-        setSnackbarMessage(data.addItemToList?.message ?? "");
+      onCompleted(response) {
+        setSnackbarMessage(response.addItemToList?.message ?? "");
         setSnackbarSeverity(
-          data.addItemToList?.code === 200 ? "success" : "error"
+          response.addItemToList?.code === 200 ? "success" : "error"
         );
         setSnackbarOpen();
         resetDialog();
@@ -76,13 +70,12 @@ export const AddShoppingItemForm: React.FC = () => {
         actions={
           <LoadingButton
             loading={addItemToListLoading}
-            loadingPosition="start"
             type="submit"
             variant="contained"
           >
             <Typography
               component="span"
-              sx={{ marginLeft: loading ? "28px" : 0 }}
+              sx={{ marginLeft: addItemToListLoading ? "28px" : 0 }}
             >
               Add to List
             </Typography>
@@ -112,14 +105,7 @@ export const AddShoppingItemForm: React.FC = () => {
           onChange={handleChange}
         />
 
-        <Select
-          label="Unit"
-          id="unit"
-          name="unit"
-          value={values.unit as string}
-          onChange={handleChange}
-          options={unitOptions}
-        />
+        <UnitSelect value={values.unit as string} onChange={handleChange} />
       </Form>
     </QueryHandler>
   );

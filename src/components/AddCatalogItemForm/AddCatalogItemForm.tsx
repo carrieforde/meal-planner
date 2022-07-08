@@ -1,7 +1,7 @@
-import { shoppingCategoriesMap, UnitMap } from "@constants";
+import { shoppingCategoriesMap } from "@constants";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Typography } from "@mui/material";
-import { Form, Input, Select } from "components";
+import { Form, Input, Select, UnitSelect } from "components";
 import {
   AddCatalogItemMutationVariables,
   GetCatalogDocument,
@@ -15,11 +15,6 @@ import {
   setSnackbarOpen,
   setSnackbarSeverity,
 } from "store";
-
-const defaultUnitOptions = Object.entries(UnitMap).map(([value, label]) => ({
-  value,
-  label,
-}));
 
 const categoryOptions = Object.entries(shoppingCategoriesMap).map(
   ([value, label]) => ({ value, label })
@@ -95,13 +90,11 @@ export const AddCatalogItemForm: React.FC = () => {
         label="Ingredient Name"
       />
 
-      <Select
+      <UnitSelect
         label="Default Unit"
-        id="defaultUnit"
         name="defaultUnit"
         value={values.defaultUnit as string}
         onChange={handleChange}
-        options={defaultUnitOptions}
       />
 
       <Select

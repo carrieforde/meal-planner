@@ -74,9 +74,7 @@ export const Navigation = () => {
               <ListItemIcon>
                 <InventoryIcon />
               </ListItemIcon>
-              <ListItemText
-                primary={<Link to="/item-inventory">Item Inventory</Link>}
-              />
+              <ListItemText primary={<Link to="/catalog">Catalog</Link>} />
             </ListItem>
           </List>
         </Box>
