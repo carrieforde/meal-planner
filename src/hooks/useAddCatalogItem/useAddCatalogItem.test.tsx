@@ -1,8 +1,5 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
 import { AddCatalogItemDocument } from "generated/graphql";
-import { GraphQLError } from "graphql";
-import { ReactNode } from "react";
 import { act } from "react-dom/test-utils";
 import {
   resetDialog,
@@ -11,6 +8,11 @@ import {
   setSnackbarSeverity,
 } from "store";
 import { mockedAddItemToCatalog } from "test-utilities/mockData";
+import {
+  createWrapper,
+  TestApolloErrorType,
+  testErrorMessage,
+} from "test-utilities/test-wrappers";
 import { useAddCatalogItem } from "./useAddCatalogItem";
 
 jest.mock("store", () => ({
@@ -22,42 +24,17 @@ jest.mock("store", () => ({
 
 const { id, ...input } = mockedAddItemToCatalog.data.addCatalogItem.catalogItem;
 
-const addItemToCatalogMock: MockedResponse = {
-  request: {
-    query: AddCatalogItemDocument,
-    variables: { input },
-  },
-  result: mockedAddItemToCatalog,
-};
-
-function createWrapper(errorType?: "graphql" | "network") {
-  return function Wrapper({ children }: { children: ReactNode }) {
-    const error =
-      errorType === "network" ? new Error("An error occurred") : undefined;
-    const errors =
-      errorType === "graphql"
-        ? [new GraphQLError("An error occurred")]
-        : undefined;
-
-    const mock = {
-      ...addItemToCatalogMock,
-      error,
-      result: {
-        ...addItemToCatalogMock.result,
-        errors,
+function renderUseAddCatalogItem(errorType?: TestApolloErrorType) {
+  const wrapper = createWrapper(
+    [
+      {
+        result: mockedAddItemToCatalog,
+        variables: { input },
+        query: AddCatalogItemDocument,
       },
-    };
-
-    return <MockedProvider mocks={[mock]}>{children}</MockedProvider>;
-  };
-}
-
-// const wrapper: React.FC = ({ children }) => (
-//   <MockedProvider mocks={[addItemToCatalogMock]}>{children}</MockedProvider>
-// );
-
-function renderUseAddCatalogItem(errorType?: "network" | "graphql") {
-  const wrapper = createWrapper(errorType);
+    ],
+    errorType
+  );
   return renderHook(() => useAddCatalogItem(), { wrapper });
 }
 
@@ -100,7 +77,7 @@ describe("useAddCatalogItem", () => {
     expect(result.current.loading).toBeFalsy();
 
     expect(setSnackbarOpen).toHaveBeenCalled();
-    expect(setSnackbarMessage).toHaveBeenCalledWith("An error occurred");
+    expect(setSnackbarMessage).toHaveBeenCalledWith(testErrorMessage);
     expect(setSnackbarSeverity).toHaveBeenCalledWith("error");
     expect(resetDialog).toHaveBeenCalled();
   });
