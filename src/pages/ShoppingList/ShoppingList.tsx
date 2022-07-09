@@ -2,11 +2,11 @@ import { DialogType } from "@constants";
 import AddIcon from "@mui/icons-material/Add";
 import { Fab, Typography } from "@mui/material";
 import { Layout, List, QueryHandler } from "components";
-import { useGetShoppingListQuery } from "generated/graphql";
+import { useShoppingList } from "hooks";
 import { setDialogOpen, setDialogType } from "store";
 
 export const ShoppingList = () => {
-  const { data, error, loading } = useGetShoppingListQuery();
+  const { data, error, loading } = useShoppingList();
 
   const handleFabClick = () => {
     setDialogType(DialogType.ADD_LIST_ITEM);
