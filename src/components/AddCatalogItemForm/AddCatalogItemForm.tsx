@@ -2,19 +2,9 @@ import { shoppingCategoriesMap } from "@constants";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Typography } from "@mui/material";
 import { Form, Input, Select, UnitSelect } from "components";
-import {
-  AddCatalogItemMutationVariables,
-  GetCatalogDocument,
-  useAddCatalogItemMutation,
-} from "generated/graphql";
-import { isEmpty } from "lodash";
+import { AddCatalogItemMutationVariables } from "generated/graphql";
+import { useAddCatalogItem } from "hooks";
 import React, { FormEvent, useState } from "react";
-import {
-  resetDialog,
-  setSnackbarMessage,
-  setSnackbarOpen,
-  setSnackbarSeverity,
-} from "store";
 
 const categoryOptions = Object.entries(shoppingCategoriesMap).map(
   ([value, label]) => ({ value, label })
@@ -28,39 +18,22 @@ const defaultAddCatalogItemFormValues: AddCatalogItemMutationVariables["input"] 
   };
 
 export const AddCatalogItemForm: React.FC = () => {
+  const { addCatalogItem, loading } = useAddCatalogItem();
   const [values, setValues] = useState(defaultAddCatalogItemFormValues);
-
-  const [addCatalogItem, { loading }] = useAddCatalogItemMutation({
-    variables: {
-      input: {
-        name: values.name,
-        category: values.category,
-        defaultUnit: !isEmpty(values.defaultUnit) ? values.defaultUnit : null,
-      },
-    },
-    onCompleted: (data) => {
-      setSnackbarMessage(data.addCatalogItem.message);
-      setSnackbarSeverity(
-        data.addCatalogItem.code === 200 ? "success" : "error"
-      );
-      setSnackbarOpen();
-      resetDialog();
-    },
-    refetchQueries: [
-      {
-        query: GetCatalogDocument,
-      },
-    ],
-  });
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    addCatalogItem();
+    addCatalogItem({
+      name: values.name,
+      category: values.category,
+      defaultUnit: values.defaultUnit || null,
+    });
   };
 
   const handleChange = (event: any) => {
-    setValues((s) => ({ ...s, [event.target.name]: event.target.value }));
+    const { name, value } = event.target;
+    setValues((s) => ({ ...s, [name]: value }));
   };
 
   return (
@@ -87,7 +60,7 @@ export const AddCatalogItemForm: React.FC = () => {
         name="name"
         value={values.name}
         onChange={handleChange}
-        label="Ingredient Name"
+        label="Item Name"
       />
 
       <UnitSelect

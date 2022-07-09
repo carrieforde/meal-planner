@@ -17,7 +17,7 @@ export const ShoppingList = () => {
     <QueryHandler data={data} error={error} loading={loading}>
       <Layout>
         <Typography component="h1">Shopping List</Typography>
-        <List data={data} />
+        <List />
 
         <Fab
           color="primary"

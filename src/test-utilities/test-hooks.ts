@@ -1,5 +1,5 @@
 import { shoppingCategoriesMap, UnitMap } from "@constants";
-import { useCatalogItems, useShoppingList } from "hooks";
+import { useAddCatalogItem, useCatalogItems, useShoppingList } from "hooks";
 import { mockGetShoppingList } from "./mockData";
 
 jest.mock("hooks", () => ({
@@ -16,6 +16,10 @@ jest.mock("hooks", () => ({
     listCategories: [],
     addItemToCart: jest.fn(),
     addItemToCartLoading: false,
+  })),
+  useAddCatalogItem: jest.fn(() => ({
+    addCatalogItem: jest.fn(),
+    loading: false,
   })),
 }));
 
@@ -129,6 +133,24 @@ export function useShoppingListMock(
 ) {
   return mockedUseShoppingList.mockReturnValue({
     ...defaultUseShoppingListItemsReturn,
+    ...args,
+  });
+}
+
+const mockedUseAddCatalogItem = jest.mocked(useAddCatalogItem);
+
+export const defaultUseAddCatalogItemReturn: ReturnType<
+  typeof useAddCatalogItem
+> = {
+  addCatalogItem: jest.fn(),
+  loading: false,
+};
+
+export function useAddCatalogItemMock(
+  args?: Partial<ReturnType<typeof useAddCatalogItem>>
+) {
+  return mockedUseAddCatalogItem.mockReturnValue({
+    ...defaultUseAddCatalogItemReturn,
     ...args,
   });
 }
