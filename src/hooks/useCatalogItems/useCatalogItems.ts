@@ -1,17 +1,10 @@
-import {
-  ShoppingCategories,
-  shoppingCategoriesMap,
-  UnitMap,
-  Units,
-} from "@constants";
+import { ShoppingCategories, shoppingCategoriesMap } from "@constants";
 import { CatalogItem, useGetCatalogQuery } from "generated/graphql";
 import { useMemo } from "react";
 
-function mapCatalogItem({ id, name, defaultUnit, category }: CatalogItem) {
+function mapCatalogItem({ category, ...item }: CatalogItem) {
   return {
-    id,
-    name,
-    defaultUnit: defaultUnit ? UnitMap[defaultUnit as Units] : null,
+    ...item,
     category: shoppingCategoriesMap[category as ShoppingCategories],
   };
 }

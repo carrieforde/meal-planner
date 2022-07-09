@@ -7,12 +7,15 @@ import {
   mockAddItemToCart,
   mockGetShoppingList,
 } from "test-utilities/mockData";
-import { createWrapper } from "test-utilities/test-wrappers";
+import {
+  createWrapper,
+  TestApolloErrorType,
+} from "test-utilities/test-wrappers";
 import { useShoppingList } from "./useShoppingList";
 
 const itemId = mockAddItemToCart.data.addItemToCart.item.id;
 
-function renderUseShoppingList(errorType?: "network" | "graphql") {
+function renderUseShoppingList(errorType?: TestApolloErrorType) {
   const wrapper = createWrapper(
     [
       { result: mockGetShoppingList, query: GetShoppingListDocument },
