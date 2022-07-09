@@ -20,10 +20,6 @@ describe("AddCatalogItemForm", () => {
     renderAddCatalogItemForm();
     userEvent.type(screen.getByRole("textbox"), "banana");
 
-    // userEvent.click(screen.getByRole("button", { name: "Default Unit ​" }));
-    // userEvent.click(screen.getByRole("listbox"));
-    // userEvent.click(screen.getByRole("option", { name: UnitMap.POUND }));
-
     userEvent.click(screen.getByRole("button", { name: /Category/ }));
     userEvent.click(screen.getByRole("listbox"));
     userEvent.click(
