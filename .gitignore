@@ -24,3 +24,4 @@ yarn-error.log*
 .lighthouseci
 test-report.xml
 .env
+.next

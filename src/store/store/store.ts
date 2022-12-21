@@ -20,7 +20,10 @@ function createReducer(asyncReducers?: Record<string, Reducer>) {
   });
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+  typeof window !== "undefined"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : compose;
 const enhancers = composeEnhancers();
 
 function configureStore(initialState = {}) {

@@ -13,7 +13,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export const Navigation = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -50,7 +50,7 @@ export const Navigation = () => {
                 <CalendarMonthIcon />
               </ListItemIcon>
               <ListItemText
-                primary={<Link to="/meal-plans">Meal Plans</Link>}
+                primary={<Link href="/meal-plans">Meal Plans</Link>}
               />
             </ListItem>
 
@@ -58,7 +58,7 @@ export const Navigation = () => {
               <ListItemIcon>
                 <BookIcon />
               </ListItemIcon>
-              <ListItemText primary={<Link to="/recipes">Recipes</Link>} />
+              <ListItemText primary={<Link href="/recipes">Recipes</Link>} />
             </ListItem>
 
             <ListItem>
@@ -66,7 +66,7 @@ export const Navigation = () => {
                 <ShoppingCartIcon />
               </ListItemIcon>
               <ListItemText
-                primary={<Link to="/shopping-list">Shopping List</Link>}
+                primary={<Link href="/shopping-list">Shopping List</Link>}
               />
             </ListItem>
 
@@ -74,7 +74,7 @@ export const Navigation = () => {
               <ListItemIcon>
                 <InventoryIcon />
               </ListItemIcon>
-              <ListItemText primary={<Link to="/catalog">Catalog</Link>} />
+              <ListItemText primary={<Link href="/catalog">Catalog</Link>} />
             </ListItem>
           </List>
         </Box>
