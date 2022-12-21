@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "react-scripts build",
+    "build": "tsc && vite build",
     "format": "prettier --list-different --write .",
     "generate:types": "graphql-codegen --config codegen.yml",
     "lighthouse": "lhci autorun",
@@ -15,8 +15,8 @@
     "new:hook": "hygen hook new",
     "new:slice": "hygen slice new",
     "preflight": "run-s -c format lint test",
-    "serve": "serve -s build -l 4200",
-    "start": "react-scripts start",
+    "serve": "vite preview",
+    "start": "vite",
     "test": "react-scripts test --watchAll=false --maxWorkers=50% --coverage --testResultsProcessor jest-sonar-reporter",
     "test:ci": "react-scripts test --watchAll=false --maxWorkers=2 --coverage --testResultsProcessor jest-sonar-reporter",
     "test:watch": "react-scripts test --watch --maxWorkers=25%",
@@ -41,6 +41,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^8.0.0",
     "hygen": "^6.1.0",
@@ -53,7 +54,10 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
     "stylelint-order": "^5.0.0",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "vite": "^4.0.1",
+    "vite-plugin-svgr": "^2.4.0",
+    "vite-tsconfig-paths": "^4.0.3"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
@@ -75,7 +79,6 @@
     "react-hook-form": "^7.33.0",
     "react-router": "^6.2.1",
     "react-router-dom": "^6.1.1",
-    "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "web-vitals": "^2.1.0"
   },
